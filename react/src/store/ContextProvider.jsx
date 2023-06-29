@@ -13,7 +13,7 @@ export const UserContextProvider= ({children}) => {
       name: 'Tom Cook',
       email: 'tom@example.com'
    });
-   const [userToken, setUserToken] = useState(null);
+   const [userToken, setUserToken] = useState('1');
     
   return (
     <UserContext.Provider value={{
