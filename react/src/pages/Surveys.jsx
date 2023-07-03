@@ -5,6 +5,10 @@ import { UserStateContext } from "../store/ContextProvider";
 const Surveys = () => {
     const {surveys}=UserStateContext();
     console.log(surveys)
+    const onDeleteClick= () => {
+      console.log("del....")
+    }
+    
     return (  
         <>
             <PageComponent title="Surveys">
@@ -12,7 +16,7 @@ const Surveys = () => {
                     {
                         surveys.map(
                             survey => (
-                              <SurveyItem survey={survey} key={survey.id} />
+                              <SurveyItem survey={survey} key={survey.id} onDeleteClick={onDeleteClick} />
                             )
                           )
                     }
