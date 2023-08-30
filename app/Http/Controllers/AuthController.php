@@ -15,11 +15,9 @@ class AuthController extends Controller
 
         /** @var \App\Models\User $user */
 
-        var_dump($request);
-
         $data=$request->validated();
 
-        $user=User::create([
+        $user=User::create([ 
             'name'=>$data['name'],
             'email'=>$data['email'],
             'password'=>bcrypt($data['password']),

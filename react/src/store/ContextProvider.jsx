@@ -12,10 +12,7 @@ const UserContext=createContext({
 
 export const UserContextProvider= ({children}) => {
  
-   const [currentUser, setCurrentUser] = useState({
-      name: 'Tom Cook',
-      email: 'tom@example.com'
-   });
+   const [currentUser, setCurrentUser] = useState({});
    const [userToken, setUserToken] = useState('');
    const [surveys, setSurveys] = useState([...FAKE_API]);
 
@@ -24,8 +21,10 @@ export const UserContextProvider= ({children}) => {
     
   return (
     <UserContext.Provider value={{
-      currentUser, setCurrentUser,
-      userToken, setUserToken,
+      currentUser, 
+      setCurrentUser,
+      userToken, 
+      setUserToken,
       surveys
     }}>
         {children}

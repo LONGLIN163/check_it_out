@@ -2,6 +2,7 @@ import { LockClosedIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosClient from './axios.js';
+import { UserStateContext } from '../store/ContextProvider.jsx';
 
 const Signup = () => {
   const [fullName,setFullName]=useState('');
@@ -10,17 +11,11 @@ const Signup = () => {
   const [passwordConfirmation,setPasswordConfirmation]=useState('');
   const [error,setError]=useState({__html:''});
 
+  const {setUserToken,setCurrentUser}=UserStateContext();
+
   const onSubmit= (ev) => {
-    console.log(ev)
     ev.preventDefault();
     setError({__html:''});
-
-    const options = {
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-    };
 
     axiosClient
     .post('/signup',{
@@ -28,22 +23,23 @@ const Signup = () => {
       email:email,
       password:password,
       password_confirmation:passwordConfirmation
-    },
-    options)
+    })
     .then(({data}) => {
       console.log(data)
+      setCurrentUser(data.user);
+      setUserToken(data.token);
     })
     .catch((error)=>{
       console.log(error)
-      // if(error.response){
-      //   //console.log(error.response.data.errors) 
-      //   const errorsArr=Object.values(error.response.data.errors).reduce(
-      //     (accum,next) => [...accum,...next],[]  
-      //   )
-      //   console.log(errorsArr)
-      //   setError({__html:errorsArr.join('<br />')})
-      // }
-      // console.error(error)
+      if(error.response){
+        //console.log(error.response.data.errors) 
+        const errorsArr=Object.values(error.response.data.errors).reduce(
+          (accum,next) => [...accum,...next],[]  
+        )
+        console.log(errorsArr)
+        setError({__html:errorsArr.join('<br />')})
+      }
+      console.error(error)
     })
   }
   
