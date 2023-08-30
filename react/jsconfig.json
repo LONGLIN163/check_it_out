@@ -6,6 +6,7 @@
       "jsx": "react-jsx",
       "target": "esnext",
       "module": "esnext",
-      "types": ["vite/client"]
+      "types": ["vite/client"],
+      "moduleResolution": "node"
     }
   }

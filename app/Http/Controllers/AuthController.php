@@ -15,6 +15,8 @@ class AuthController extends Controller
 
         /** @var \App\Models\User $user */
 
+        var_dump($request);
+
         $data=$request->validated();
 
         $user=User::create([
@@ -43,6 +45,7 @@ class AuthController extends Controller
         };
 
         // if logged in,....
+        /** @var User $user */
         $user=Auth::user();
         $token=$user->createToken('haha')->plainTextToken;
 
@@ -55,7 +58,6 @@ class AuthController extends Controller
     public function logout(Request $request){
 
         /** @var User $user */
-        
         $user=Auth::user();
         $user->currentAccessToken()->delete();
 

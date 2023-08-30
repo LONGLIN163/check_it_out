@@ -16,7 +16,7 @@ export const UserContextProvider= ({children}) => {
       name: 'Tom Cook',
       email: 'tom@example.com'
    });
-   const [userToken, setUserToken] = useState('1');
+   const [userToken, setUserToken] = useState('');
    const [surveys, setSurveys] = useState([...FAKE_API]);
 
    //console.log(surveys)

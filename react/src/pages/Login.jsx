@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { LockClosedIcon } from '@heroicons/react/24/solid'
 
 const Login = () => {
