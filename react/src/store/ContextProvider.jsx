@@ -13,11 +13,19 @@ const UserContext=createContext({
 export const UserContextProvider= ({children}) => {
  
    const [currentUser, setCurrentUser] = useState({});
-   const [userToken, setUserToken] = useState('');
+   const [userToken, _setUserToken] = useState(localStorage.getItem('TOKEN') || '');
    const [surveys, setSurveys] = useState([...FAKE_API]);
 
-   //console.log(surveys)
-
+   const setUserToken= (token) => {
+     console.log(token)
+    
+     if(token){
+      localStorage.setItem('TOKEN',token);
+     }else{
+      localStorage.removeItem('TOKEN');
+     }
+     _setUserToken(token);
+   }
     
   return (
     <UserContext.Provider value={{
