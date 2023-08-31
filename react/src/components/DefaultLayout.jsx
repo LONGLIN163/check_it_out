@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, UserIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { NavLink, Navigate, Outlet } from 'react-router-dom'
 import { UserStateContext } from '../store/ContextProvider'
+import axiosClient from '../pages/axios'
 
 // const user = {
 //   name: 'Tom Cook',
@@ -23,12 +24,26 @@ function classNames(...classes) {
 }
 
 export default function DefaultLayout() {
-  const {currentUser,userToken}=UserStateContext();
+
+  const {currentUser,userToken,setCurrentUser,setUserToken}=UserStateContext();
+
   if(!userToken){
     return (
       <Navigate to='login'/>
     )
   }
+
+  const logout = (ev) => {
+    ev.preventDefault();
+    axiosClient.post("/logout")
+    .then( res => {
+      console.log(res)
+      setCurrentUser({});
+      setUserToken(null);
+
+    })
+  }
+
   return (
     <>
       <div className="min-h-full">
@@ -150,6 +165,7 @@ export default function DefaultLayout() {
                         key={item.name}
                         as="a"
                         href={item.href}
+                        onClick={(ev) => logout(ev)}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}
